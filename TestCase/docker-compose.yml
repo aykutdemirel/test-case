@@ -1,0 +1,53 @@
+﻿version: '3.1'
+services:
+  testcase-server:
+    build: .
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      MongoDB__Host: mongo
+    depends_on:
+      - mongo
+      - rabbitmq
+      - elasticsearch
+  mongo:
+    image: 'mongo:latest'
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    container_name: rabbitmq
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+      - esnetwork
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.3.0
+    ports:
+      - "5601:5601"
+    networks:
+      - esnetwork
+    depends_on:
+      - elasticsearch
+networks:
+  esnetwork:
+    driver: bridge
+volumes:
+  mongodb_data:
+    driver: local
+  esdata:
+    driver: local
