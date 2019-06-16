@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using TestCase.Config;
 using TestCase.Consumers;
+using TestCase.Context;
 using TestCase.Models;
 using TestCase.Repositories;
 

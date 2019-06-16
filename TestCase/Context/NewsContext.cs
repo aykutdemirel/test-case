@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using TestCase;
 using MongoDB.Driver;
+using TestCase.Models;
 
-namespace TestCase.Models
+namespace TestCase.Context
 {
-
-
     public class NewsContext : INewsContext
     {
         private readonly IMongoDatabase _db;
