@@ -13,12 +13,10 @@ namespace TestCase.Consumers
     public class MongoConsumer : IConsumer<News>
     {
         private readonly INewsRepository _repo;
-        private readonly IElasticClient _elasticClient;
 
-        public MongoConsumer(INewsRepository repo, IElasticClient elasticClient)
+        public MongoConsumer(INewsRepository repo)
         {
             _repo = repo;
-            _elasticClient = elasticClient;
         }
 
         public async Task Consume(ConsumeContext<News> context)
