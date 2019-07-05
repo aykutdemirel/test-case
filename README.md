@@ -3,7 +3,9 @@ TestCase klasörü içinde sadece <b>docker-compose up --build</b> komutunu çal
 
 localhost'unuzun 80 port'unda çalışan bir uygulamanız olmadığından emin olunuz. 
 
-Tüm Image'lar ayağa kalktıktan sonra localhost adresinden kontrol edebilirsiniz otomatik olarak swagger karşınıza çıkacaktır.
+Tüm Image'lar ayağa kalktıktan sonra localhost adresinden karşınıza ui çıkacaktır.
+
+Backend servisi 5000 portundan hizmet vermektedir.
 
 News post ettiğinizde rabbitmq'ya düşer, mongo ve elasticsearch için ayrı ayrı consume edilir.
 
