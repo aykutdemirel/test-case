@@ -1,0 +1,61 @@
+.addNews h1{
+    font-size: 2.2em;
+    line-height: 1.2em;
+    margin-bottom: 20px;
+}
+
+.addNews h2 {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    font-weight: 400;
+}
+
+.white-coloumn {
+    background-color: #fff;
+}
+
+.ck-editor__main .ck-content {
+    border:none !important;
+    padding: 0;
+    box-shadow: none !important;
+}
+
+.ck-editor__top {
+    position: absolute !important;
+    top:0 !important;
+    left:0 !important;
+    width: 100% !important;
+    display: none;
+    -webkit-transition: top 1s linear !important;
+    -moz-transition: top 1s linear !important;
+    -o-transition: top 1s linear !important;
+    transition: top 1s linear !important;
+}
+
+.ck-editor:hover .ck-editor__top {
+    display: block;
+    top:-30px !important;
+}
+
+.pull-left {
+    float:left;
+}
+
+.newsType {
+    width: 255px;
+    position: absolute;
+    right:30px;
+    top: 15px;
+}
+
+.small-font {
+    font-size: 12px;
+}
+
+.input-xs {
+    height: 30px;
+    padding: 4px 5px 4px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}

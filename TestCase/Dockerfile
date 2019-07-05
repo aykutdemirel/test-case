@@ -48,4 +48,5 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
 COPY --from=build-env /app/out .
+ENV ASPNETCORE_URLS=http://+:5000
 ENTRYPOINT ["dotnet", "TestCase.dll"]

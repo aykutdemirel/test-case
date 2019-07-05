@@ -1,0 +1,9 @@
+﻿.main-search-box {
+    width: 250px;
+    position: relative;
+}
+
+    .main-search-box input.form-control {
+        width: 100%;
+        display: block;
+    }

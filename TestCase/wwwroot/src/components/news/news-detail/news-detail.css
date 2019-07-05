@@ -1,0 +1,25 @@
+
+.detail-news-wrapper h1{
+    font-size: 2.2em;
+    line-height: 1.2em;
+    margin-bottom: 20px;
+}
+
+.detail-news-wrapper h2 {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    font-weight: 400;
+}
+
+.detail-news-wrapper .news-detail-main-img {
+    max-width: 100%;
+}
+
+.white-coloumn {
+    background-color: #fff;
+}
+
+.pull-left {
+    float:left;
+}
+

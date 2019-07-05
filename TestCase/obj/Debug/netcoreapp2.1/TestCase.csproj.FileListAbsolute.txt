@@ -2,13 +2,13 @@ C:\Users\ayktdemirel\source\repos\TestCase\TestCase\bin\Debug\netcoreapp2.1\Test
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\bin\Debug\netcoreapp2.1\TestCase.runtimeconfig.json
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\bin\Debug\netcoreapp2.1\TestCase.runtimeconfig.dev.json
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\bin\Debug\netcoreapp2.1\TestCase.dll
-C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.csprojAssemblyReference.cache
+C:\Users\ayktdemirel\source\repos\TestCase\TestCase\bin\Debug\netcoreapp2.1\TestCase.pdb
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.csproj.CoreCompileInputs.cache
+C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.RazorAssemblyInfo.cache
+C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.RazorAssemblyInfo.cs
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.AssemblyInfoInputs.cache
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.AssemblyInfo.cs
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.RazorTargetAssemblyInfo.cache
-C:\Users\ayktdemirel\source\repos\TestCase\TestCase\bin\Debug\netcoreapp2.1\TestCase.pdb
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.dll
 C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.pdb
-C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.RazorAssemblyInfo.cache
-C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.RazorAssemblyInfo.cs
+C:\Users\ayktdemirel\source\repos\TestCase\TestCase\obj\Debug\netcoreapp2.1\TestCase.csprojAssemblyReference.cache

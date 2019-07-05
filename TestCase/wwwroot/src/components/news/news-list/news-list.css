@@ -1,0 +1,30 @@
+﻿.haberler > div {
+    margin-bottom:20px;
+
+}
+
+.haberler-item {
+    overflow: hidden;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: rgba(0,0,0,0.03) 1px 1px 1px;
+}
+
+    .haberler-item .haberler-grid-div {
+        width: 300px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        height: 159px;
+    }
+
+        .haberler-item .haberler-title {
+            font-size: 18px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: 5px;
+            color: #000000;
+        }
+
+.haberler-grid-img {
+    max-height: 159px;
+}

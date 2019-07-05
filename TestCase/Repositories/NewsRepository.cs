@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TestCase.Context;
 using TestCase.Models;
@@ -23,14 +24,34 @@ namespace TestCase.Repositories
                             .Find(_ => true)
                             .ToListAsync();
         }
-        public Task<News> GetNews(long id)
+        public Task<News> GetNews(string _id)
         {
-            FilterDefinition<News> filter = Builders<News>.Filter.Eq(m => m.Id, id);
+            FilterDefinition<News> filter = Builders<News>.Filter.Eq(m => m._id, ObjectId.Parse(_id));
             return _context
                     .News
                     .Find(filter)
                     .FirstOrDefaultAsync();
         }
+        public async Task<IEnumerable<News>> GetNewsByTypeId(int type_id)
+        {
+            FilterDefinition<News> filter = Builders<News>.Filter.Where(m => m.type == type_id);
+            return await _context
+                    .News
+                    .Find(filter)
+                    .ToListAsync();
+        }
+
+        public async Task<IEnumerable<News>> GetNewsByQuery(string query, int page, int pageSize)
+        {
+            // FilterDefinition<News> filter = Builders<News>.Filter.Regex("title", BsonRegularExpression.Create(new Regex(query, RegexOptions.IgnoreCase)));
+            var filter = new BsonDocument { { "title", new BsonDocument { { "$regex", query }, { "$options", "$i" } } } };
+
+            return await _context
+                    .News
+                    .Find(filter)
+                    .ToListAsync();
+        }
+
         public async Task Create(News news)
         {
             await _context.News.InsertOneAsync(news);
@@ -46,9 +67,9 @@ namespace TestCase.Repositories
             return updateResult.IsAcknowledged
                     && updateResult.ModifiedCount > 0;
         }
-        public async Task<bool> Delete(long id)
+        public async Task<bool> Delete(string _id)
         {
-            FilterDefinition<News> filter = Builders<News>.Filter.Eq(m => m.Id, id);
+            FilterDefinition<News> filter = Builders<News>.Filter.Eq(m => m._id, ObjectId.Parse(_id));
             DeleteResult deleteResult = await _context
                                                 .News
                                               .DeleteOneAsync(filter);

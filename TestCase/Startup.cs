@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,13 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+
 using Swashbuckle.AspNetCore.Swagger;
 using TestCase.Config;
 using TestCase.Consumers;
 using TestCase.Context;
-using TestCase.Models;
 using TestCase.Repositories;
 
 namespace TestCase
@@ -27,6 +22,8 @@ namespace TestCase
             Configuration = configuration;
         }
 
+        readonly string SpecificOrigins = "_reactiveWebPrograminCors";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -36,9 +33,26 @@ namespace TestCase
             Configuration.Bind(config);
 
             var newsContext = new NewsContext(config.MongoDB);
-            var repo = new NewsRepository(newsContext);
+            var newsRepo = new NewsRepository(newsContext);
+            var categoriesContext = new CategoriesContext(config.MongoDB);
+            var categoriesRepo = new CategoriesRepository(categoriesContext);
+            var imagesContext = new ImagesContext(config.MongoDB);
+            var imagesRepo = new ImagesRepository(imagesContext);
 
-            services.AddSingleton<INewsRepository>(repo);
+            services.AddSingleton<INewsRepository>(newsRepo);
+            services.AddSingleton<ICategoriesRepository>(categoriesRepo);
+            services.AddSingleton<IImagesRepository>(imagesRepo);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(SpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost",
+                                        "http://localhost:3000").AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddElasticsearch(Configuration);
@@ -66,18 +80,6 @@ namespace TestCase
 
             services.AddSingleton<IHostedService, MassTransitConsoleHostedService>();
 
-            //var bus = BusConfig.Instance
-            //    .ConfigureBus((cfg, host) =>
-            //    {
-            //        cfg.ReceiveEndpoint(host, "demiroren.news", e =>
-            //        {
-            //            // e.Consumer<NewsConsumer>();
-            //            e.LoadFrom();
-            //        });
-            //    });
-
-            //bus.Start();
-
             // swagger
             services.AddSwaggerGen(n =>
             {
@@ -99,6 +101,8 @@ namespace TestCase
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(SpecificOrigins);
+
             app.UseMvc();
 
             app.UseSwagger();
@@ -106,6 +110,11 @@ namespace TestCase
             {
                 n.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseStaticFiles();
+
+
+
         }
     }
 }

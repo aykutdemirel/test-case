@@ -22,9 +22,8 @@ namespace TestCase.Consumers
         public async Task Consume(ConsumeContext<News> context)
         {
             var newsCommand = context.Message;
-            await Console.Out.WriteAsync($"News Title: {newsCommand.Title} News Content: {newsCommand.Content}");
+            await Console.Out.WriteAsync($"News Title: {newsCommand.title} News Content: {newsCommand.content}");
             newsCommand.Id = await _repo.GetNextId();
-            await _repo.GetNextId();
             await _repo.Create((News)newsCommand);
         }
     }

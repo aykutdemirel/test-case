@@ -11,10 +11,12 @@ using MassTransit;
 using TestCase.Config;
 using System.Configuration;
 using Nest;
+using Microsoft.AspNetCore.Http;
+using MongoDB.Bson;
 
 namespace TestCase.Controllers {
 
-    [Route("api/[controller]")]
+    [Route("api/news")]
     [ApiController]
     public class NewsController : ControllerBase
     {
@@ -35,36 +37,44 @@ namespace TestCase.Controllers {
             return new ObjectResult(await _repo.GetAllNews());
         }
 
-        [HttpGet("/search")]
+        // GET api/news/search
+        [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<News>>> Find(string query, int page = 1, int pageSize = 10)
         {
-            var response = await _elasticClient.SearchAsync<News>(
-                s => s.Query(q => q.QueryString(d => d.Query(query)))
-                    .From((page - 1) * pageSize)
-                    .Size(pageSize));
-            return new ObjectResult(response.Documents);
+
+            var news = await _repo.GetNewsByQuery(query, page, pageSize);
+
+            if (news == null)
+                return new NotFoundResult();
+
+            return new OkObjectResult(news);
+
         }
 
         // GET api/news/1
-        [HttpGet("{id}")]
-        public async Task<ActionResult<News>> Get(long id)
+        [HttpGet("{_id}")]
+        public async Task<ActionResult<News>> Get(string _id)
         {
-            var news = await _repo.GetNews(id);
+            var news = await _repo.GetNews(_id);
             if (news == null)
                 return new NotFoundResult();
 
             return new ObjectResult(news);
         }
 
-        [HttpGet("{id}/test")]
-        public string GetTest()
+        [HttpGet("type/{type_id}")]
+        public async Task<ActionResult<News>> GetNewsByType(int type_id)
         {
-            return "{test:'testtestse'}";
+            var news = await _repo.GetNewsByTypeId(type_id);
+            if (news == null)
+                return new NotFoundResult();
+
+            return new ObjectResult(news);
         }
 
         // POST api/news
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] News news)
+        public async Task<ActionResult> Post([FromBody]News news)
         {
             // send to rabbitmq
             await _busControl.Publish(news);
@@ -72,25 +82,25 @@ namespace TestCase.Controllers {
         }
 
         // PUT api/news/1
-        [HttpPut("{id}")]
-        public async Task<ActionResult<News>> Put(long id, [FromBody] News news)
+        [HttpPut("{_id}")]
+        public async Task<ActionResult<News>> Put(string _id, [FromBody] News news)
         {
-            var newsFromDb = await _repo.GetNews(id);
+            var newsFromDb = await _repo.GetNews(_id);
             if (newsFromDb == null)
                 return new NotFoundResult();
             news.Id = newsFromDb.Id;
-            news.InternalId = newsFromDb.InternalId;
+            news._id = newsFromDb._id;
             await _repo.Update(news);
             return new OkObjectResult(news);
         }
         // DELETE api/news/1
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        [HttpDelete("{_id}")]
+        public async Task<IActionResult> Delete(string _id)
         {
-            var news = await _repo.GetNews(id);
+            var news = await _repo.GetNews(_id);
             if (news == null)
                 return new NotFoundResult();
-            await _repo.Delete(id);
+            await _repo.Delete(_id);
             return new OkResult();
         }
 

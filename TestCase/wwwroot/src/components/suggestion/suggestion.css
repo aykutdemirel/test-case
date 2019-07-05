@@ -1,0 +1,22 @@
+﻿ul.suggestion-list-wrapper{
+    position: absolute;
+    top: 28px;
+    left:1px;
+    z-index: 9;
+    width: 241px;
+    background-color: #fff;
+    padding: 10px 15px;
+}
+
+ul.suggestion-list-wrapper li {
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.display-none {
+    display: none;
+}

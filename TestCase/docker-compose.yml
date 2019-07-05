@@ -1,10 +1,17 @@
 ﻿version: '3.1'
 services:
+  ui-prod:
+    container_name: ui-prod
+    build:
+      context: wwwroot
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
   testcase-server:
     build: .
     restart: always
     ports:
-      - 80:80
+      - 5000:5000
     environment:
       MongoDB__Host: mongo
     depends_on:
